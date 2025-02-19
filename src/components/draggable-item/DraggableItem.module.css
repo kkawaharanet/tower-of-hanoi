@@ -1,0 +1,72 @@
+.disc {
+  height: 10%; /* 要素の高さは画面の1/10とする */
+  border-radius: 8px;
+  display: flex;
+  justify-content: center; /* テキストを中央に配置する */
+  align-items: center; /* テキストを中央に配置する */
+  color: #ffffff;
+
+  &.draggable {
+    cursor: grab;
+  }
+
+  &.value-0 {
+    width: 10%;
+    background-color: #d50000;
+    border: 2px solid #b71c1c;
+  }
+
+  &.value-1 {
+    width: 20%;
+    background-color: #c51162;
+    border: 2px solid #880e4f;
+  }
+
+  &.value-2 {
+    width: 30%;
+    background-color: #aa00ff;
+    border: 2px solid #4a148c;
+  }
+
+  &.value-3 {
+    width: 40%;
+    background-color: #6200ea;
+    border: 2px solid #311b92;
+  }
+
+  &.value-4 {
+    width: 50%;
+    background-color: #304ffe;
+    border: 2px solid #1a237e;
+  }
+
+  &.value-5 {
+    width: 60%;
+    background-color: #2962ff;
+    border: 2px solid #0d47a1;
+  }
+
+  &.value-6 {
+    width: 70%;
+    background-color: #0091ea;
+    border: 2px solid #01579b;
+  }
+
+  &.value-7 {
+    width: 80%;
+    background-color: #00b8d4;
+    border: 2px solid #006064;
+  }
+
+  &.value-8 {
+    width: 90%;
+    background-color: #00bfa5;
+    border: 2px solid #004d40;
+  }
+
+  &.value-9 {
+    width: 100%;
+    background-color: #00c853;
+    border: 2px solid #1b5e20;
+  }
+}
