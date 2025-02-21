@@ -12,7 +12,7 @@ export function GameScene(props: {
   onMove: (from: number, to: number) => void;
   onGoBack: () => void;
   onGoNext: () => void;
-  onQuit: () => void;
+  onQuit: (count?: number) => void;
 }) {
   const [from, setFrom] = useState<number | undefined>(undefined);
 
@@ -44,32 +44,39 @@ export function GameScene(props: {
   return (
     <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <div className={styles.container}>
-        {props.game.cleared ? (
-          <div className={styles.cleared}>
-            <div>
-              {props.game.name}を{props.game.count}回の操作で
+        {
+          // クリア状態ならクリア画面を表示する
+          props.game.cleared ? (
+            <div className={styles.cleared}>
+              <div>
+                {props.game.level}を{props.game.count}回の操作で
+              </div>
+              <div className={styles["cleared-text"]}>クリア</div>
+              <button
+                onClick={() => props.onQuit(props.game.count)}
+                className={styles.button}
+              >
+                戻る
+              </button>
             </div>
-            <div className={styles["cleared-text"]}>クリア</div>
-            <button onClick={props.onQuit} className={styles.button}>
-              戻る
-            </button>
-          </div>
-        ) : (
-          <div className={styles.status}>
-            <button
-              onClick={props.onGoBack}
-              disabled={!props.canGoBack}
-              className={styles.button}
-            >
-              1手戻る
-            </button>
-            <div>{props.game.name}</div>
-            <div>{props.game.count}回</div>
-            <button onClick={props.onQuit} className={styles.button}>
-              諦める
-            </button>
-          </div>
-        )}
+          ) : (
+            // 未クリア状態なら状態を表示する
+            <div className={styles.status}>
+              <button
+                onClick={props.onGoBack}
+                disabled={!props.canGoBack}
+                className={styles.button}
+              >
+                1手戻る
+              </button>
+              <div>{props.game.level}</div>
+              <div>{props.game.count}回</div>
+              <button onClick={() => props.onQuit()} className={styles.button}>
+                諦める
+              </button>
+            </div>
+          )
+        }
         <div className={styles.row}>
           {Array.from({ length: 3 }).map((_, x) => (
             <DroppableColumn id={x} key={`column${x}`}>

@@ -1,47 +1,45 @@
 import { Game } from "../game";
 import { IGame } from "../i-game";
+import { Save } from "../models/save/save";
 import styles from "./TitleScene.module.css";
 
-export function TitleScene(props: { onStart: (game: IGame) => void }) {
+export function TitleScene(props: {
+  saves: Save[];
+  onStart: (game: IGame) => void;
+}) {
+  const levelNames = [
+    "かんたん",
+    "ふつう",
+    "むずかしい",
+    "めんどくさい",
+    "超めんどくさい",
+    "真・究極ウルトラスーパーめんどくさい",
+  ];
+
   return (
     <div className={styles.container}>
-      <h1>ハノイの塔</h1>
-      <button
-        onClick={() => props.onStart(Game.createLevel1())}
-        className={styles.button}
-      >
-        かんたん
-      </button>
-      <button
-        onClick={() => props.onStart(Game.createLevel2())}
-        className={styles.button}
-      >
-        ふつう
-      </button>
-      <button
-        onClick={() => props.onStart(Game.createLevel3())}
-        className={styles.button}
-      >
-        むずかしい
-      </button>
-      <button
-        onClick={() => props.onStart(Game.createLevel4())}
-        className={styles.button}
-      >
-        めんどくさい
-      </button>
-      <button
-        onClick={() => props.onStart(Game.createLevel5())}
-        className={styles.button}
-      >
-        超めんどくさい
-      </button>
-      <button
-        onClick={() => props.onStart(Game.createLevel6())}
-        className={styles.button}
-      >
-        真・究極ウルトラスーパーめんどくさい
-      </button>
+      <h1 className={styles["game-title"]}>
+        ハノイの塔
+        <span className={styles["game-title-diagonal"]}>Extreme Edition</span>
+      </h1>
+      {levelNames.map((levelName, level) => {
+        const classNames = [
+          styles.button,
+          props.saves.find((s) => s.level === level)
+            ? styles.cleared
+            : undefined,
+        ];
+        return (
+          <button
+            onClick={() => props.onStart(Game.create(level))}
+            className={classNames.join(" ")}
+            key={levelName}
+          >
+            {levelName}
+          </button>
+        );
+      })}
+
       <div className={styles.version}>バージョン: 1.0.0</div>
     </div>
   );

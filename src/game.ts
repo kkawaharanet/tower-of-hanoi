@@ -1,10 +1,12 @@
 import { IGame } from "./i-game";
 
 export class Game implements IGame {
+  public static LEVELS = 6;
+
   constructor(
+    public readonly level: number,
     public readonly towers: number[][],
-    public readonly count: number,
-    public readonly name: string
+    public readonly count: number
   ) {}
 
   get cleared() {
@@ -41,30 +43,24 @@ export class Game implements IGame {
     const towers = structuredClone(this.towers);
     const value = towers[from].pop()!;
     towers[to].push(value);
-    return new Game(towers, this.count + 1, this.name);
+    return new Game(this.level, towers, this.count + 1);
   }
 
-  static createLevel1(): IGame {
-    return new Game([[2, 1, 0], [], []], 0, "level1");
-  }
-
-  static createLevel2(): IGame {
-    return new Game([[3, 2, 1, 0], [], []], 0, "level2");
-  }
-
-  static createLevel3(): IGame {
-    return new Game([[4, 3, 2, 1, 0], [], []], 0, "level3");
-  }
-
-  static createLevel4(): IGame {
-    return new Game([[5, 4, 3, 2, 1, 0], [], []], 0, "level4");
-  }
-
-  static createLevel5(): IGame {
-    return new Game([[6, 5, 4, 3, 2, 1, 0], [], []], 0, "level5");
-  }
-
-  static createLevel6(): IGame {
-    return new Game([[9, 8, 7, 6, 5, 4, 3, 2, 1, 0], [], []], 0, "level6");
+  static create(level: number): IGame {
+    if (level <= -1 || level >= Game.LEVELS) {
+      throw new Error("レベルがおかしい");
+    }
+    if (level === 0) {
+      return new Game(0, [[2, 1, 0], [], []], 0);
+    } else if (level === 1) {
+      return new Game(1, [[3, 2, 1, 0], [], []], 0);
+    } else if (level === 2) {
+      return new Game(2, [[4, 3, 2, 1, 0], [], []], 0);
+    } else if (level === 3) {
+      return new Game(3, [[5, 4, 3, 2, 1, 0], [], []], 0);
+    } else if (level === 4) {
+      return new Game(4, [[6, 5, 4, 3, 2, 1, 0], [], []], 0);
+    }
+    return new Game(5, [[9, 8, 7, 6, 5, 4, 3, 2, 1, 0], [], []], 0);
   }
 }

@@ -1,8 +1,8 @@
 export interface IGame {
   /**
-   * 操作回数
+   * レベル
    */
-  readonly count: number;
+  readonly level: number;
 
   /**
    * 塔
@@ -10,14 +10,14 @@ export interface IGame {
   readonly towers: number[][];
 
   /**
+   * 操作回数
+   */
+  readonly count: number;
+
+  /**
    * クリア状態
    */
   readonly cleared: boolean;
-
-  /**
-   * 名前
-   */
-  readonly name: string;
 
   /**
    * 移動できるか判定する

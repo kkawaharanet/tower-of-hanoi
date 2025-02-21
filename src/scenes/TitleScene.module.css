@@ -14,7 +14,7 @@
 
 .button {
   padding: 8px;
-  width: 10em;
+  width: 20em;
   font-size: 100%;
   cursor: pointer;
   border: 2px solid #000000;
@@ -22,9 +22,13 @@
   background-color: #ffffff;
   color: #000000;
 
-  &:active {
+  &:not(:disabled):active {
     background-color: #000000;
     color: #ffffff;
+  }
+
+  &.cleared {
+    background-color: #c8e6c9;
   }
 }
 
@@ -33,4 +37,19 @@
   left: 0;
   bottom: 0;
   padding: 8px;
+}
+
+.game-title {
+  position: relative;
+}
+
+.game-title-diagonal {
+  position: absolute;
+  top: -20px;
+  right: -80px;
+  font-size: 50%;
+  font-weight: normal;
+  transform: rotate(10deg);
+  transform-origin: top right;
+  white-space: nowrap;
 }

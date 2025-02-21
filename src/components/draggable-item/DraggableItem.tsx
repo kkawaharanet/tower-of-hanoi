@@ -5,11 +5,12 @@ export function DraggableItem(props: { id: number; draggable: boolean }) {
   const { attributes, listeners, setNodeRef, transform } = useDraggable({
     id: props.id,
   });
-  const style = transform
-    ? {
-        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
-      }
-    : undefined;
+  const style = {
+    transform: transform
+      ? `translate3d(${transform.x}px, ${transform.y}px, 0)`
+      : undefined,
+    touchAction: "none",
+  };
 
   const className = [
     styles.disc,
