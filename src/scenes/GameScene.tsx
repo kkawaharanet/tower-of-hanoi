@@ -7,12 +7,12 @@ import styles from "./GameScene.module.css";
 
 export function GameScene(props: {
   game: IGame;
-  canGoBack: boolean;
-  canGoNext: boolean;
+  gamesLength: number;
+  gameIndex: number;
   onMove: (from: number, to: number) => void;
-  onGoBack: () => void;
-  onGoNext: () => void;
-  onQuit: (count?: number) => void;
+  onRewind: (index: number) => void;
+  onQuit: () => void;
+  onClear: (level: number, count: number) => void;
 }) {
   const [from, setFrom] = useState<number | undefined>(undefined);
 
@@ -49,11 +49,13 @@ export function GameScene(props: {
           props.game.cleared ? (
             <div className={styles.cleared}>
               <div>
-                {props.game.level}を{props.game.count}回の操作で
+                {props.game.level}を{props.game.count}手で
               </div>
               <div className={styles["cleared-text"]}>クリア</div>
               <button
-                onClick={() => props.onQuit(props.game.count)}
+                onClick={() =>
+                  props.onClear(props.game.level, props.game.count)
+                }
                 className={styles.button}
               >
                 戻る
@@ -62,16 +64,18 @@ export function GameScene(props: {
           ) : (
             // 未クリア状態なら状態を表示する
             <div className={styles.status}>
-              <button
-                onClick={props.onGoBack}
-                disabled={!props.canGoBack}
-                className={styles.button}
+              <select
+                onChange={(e) => props.onRewind(e.target.selectedIndex)}
+                className={styles.select}
+                value={props.gameIndex}
               >
-                1手戻る
-              </button>
-              <div>{props.game.level}</div>
-              <div>{props.game.count}回</div>
-              <button onClick={() => props.onQuit()} className={styles.button}>
+                {Array.from({ length: props.gamesLength }).map((g, i) => (
+                  <option value={i} key={i}>
+                    {i}手目
+                  </option>
+                ))}
+              </select>
+              <button onClick={props.onQuit} className={styles.button}>
                 諦める
               </button>
             </div>

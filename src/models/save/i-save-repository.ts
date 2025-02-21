@@ -2,9 +2,15 @@ import { Save } from "./save";
 
 export interface ISaveRepository {
   /**
+   * データを取得する
+   * @param level レベル
+   */
+  find(level: number): Save | undefined;
+
+  /**
    * 全データを取得する
    */
-  getAll(): Save[];
+  findAll(): Save[];
 
   /**
    * 更新する

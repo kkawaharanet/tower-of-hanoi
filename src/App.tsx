@@ -8,8 +8,10 @@ function App() {
   // ゲームの履歴
   const [games, setGames] = useState<IGame[]>([]);
 
-  // 最後のゲーム
-  const lastGame = games[games.length - 1];
+  const [gameIndex, setGameIndex] = useState(-1);
+
+  // 現在のゲーム
+  const currentGame = games[gameIndex];
 
   // セーブデータ
   const saveRepository = useContext(SaveRepositoryContext);
@@ -17,50 +19,67 @@ function App() {
   function handleGameStart(game: IGame) {
     // ゲームを始めるときは、履歴が1個だけの状態にする
     setGames([game]);
+    setGameIndex(0);
   }
 
   function handleMove(from: number, to: number) {
-    if (!lastGame.canMove(from, to)) {
+    if (!games[gameIndex].canMove(from, to)) {
       // 円盤の移動できない場合は何もしない
       return;
     }
+
+    let updatedGames = [...games];
+    if (gameIndex !== games.length - 1) {
+      // 巻き戻し済みなら、巻き戻しから先の履歴を削除する
+      updatedGames = updatedGames.slice(0, gameIndex + 1);
+    }
     // 円盤を移動した結果を履歴に追加する
-    setGames((games) => [...games, lastGame.move(from, to)]);
+    updatedGames = [...updatedGames, currentGame.move(from, to)];
+    setGames(updatedGames);
+    setGameIndex(updatedGames.length - 1);
   }
 
-  function handleGoBack() {
-    // 履歴の最後を削除する
-    setGames((games) => games.slice(0, -1));
+  function handleRewind(index: number) {
+    setGameIndex(index);
   }
 
-  function handleGoNext() {}
+  function handleQuit() {
+    // 履歴を空にする
+    setGames([]);
+    setGameIndex(-1);
+  }
 
-  function handleQuit(count?: number) {
-    if (count !== undefined) {
-      // クリア状態で戻る場合はセーブデータに保存する
-      saveRepository.update({ level: lastGame.level, count });
+  function handleClear(level: number, count: number) {
+    const save = saveRepository.find(level);
+    if (!save) {
+      // セーブデータがなかったらセーブデータを保存する
+      saveRepository.update({ level, count });
+    } else if (count < save.count) {
+      // セーブデータがあり、最高記録を更新していたらセーブデータを保存する
+      saveRepository.update({ level, count });
     }
     // 履歴を空にする
     setGames([]);
+    setGameIndex(-1);
   }
 
-  if (!lastGame) {
+  if (!currentGame) {
     // 履歴がない場合はタイトル画面を表示する
     return (
-      <TitleScene onStart={handleGameStart} saves={saveRepository.getAll()} />
+      <TitleScene onStart={handleGameStart} saves={saveRepository.findAll()} />
     );
   }
 
   // それ以外の場合はゲーム画面を表示する
   return (
     <GameScene
-      game={lastGame}
-      canGoBack={games.length >= 2}
-      canGoNext={false}
+      game={currentGame}
+      gameIndex={gameIndex}
+      gamesLength={games.length}
       onMove={handleMove}
-      onGoBack={handleGoBack}
-      onGoNext={handleGoNext}
+      onRewind={handleRewind}
       onQuit={handleQuit}
+      onClear={handleClear}
     />
   );
 }

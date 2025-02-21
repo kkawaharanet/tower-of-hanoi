@@ -4,7 +4,12 @@ import { Save } from "./save";
 export class SaveRepository implements ISaveRepository {
   private static KEY = "save";
 
-  getAll(): Save[] {
+  find(level: number): Save | undefined {
+    const saves = this.findAll();
+    return saves.find((s) => s.level === level);
+  }
+
+  findAll(): Save[] {
     try {
       const item = window.localStorage.getItem(SaveRepository.KEY);
       if (!item) {
@@ -17,7 +22,7 @@ export class SaveRepository implements ISaveRepository {
   }
 
   update(save: Save): void {
-    const saves = this.getAll();
+    const saves = this.findAll();
     const updated = [...saves.filter((s) => s.level !== save.level), save];
     window.localStorage.setItem(SaveRepository.KEY, JSON.stringify(updated));
   }

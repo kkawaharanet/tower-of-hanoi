@@ -45,11 +45,11 @@
 
 .game-title-diagonal {
   position: absolute;
-  top: -20px;
-  right: -80px;
-  font-size: 50%;
+  top: -40px;
+  left: -40px;
+  font-size: 80%;
   font-weight: normal;
-  transform: rotate(10deg);
+  transform: rotate(-10deg);
   transform-origin: top right;
   white-space: nowrap;
 }

@@ -19,10 +19,11 @@ export function TitleScene(props: {
   return (
     <div className={styles.container}>
       <h1 className={styles["game-title"]}>
+        <span className={styles["game-title-diagonal"]}>Super</span>
         ハノイの塔
-        <span className={styles["game-title-diagonal"]}>Extreme Edition</span>
       </h1>
       {levelNames.map((levelName, level) => {
+        // セーブデータがあったら色を付ける
         const classNames = [
           styles.button,
           props.saves.find((s) => s.level === level)

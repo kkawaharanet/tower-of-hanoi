@@ -126,6 +126,16 @@
   }
 }
 
+.select {
+  padding: 8px;
+  font-size: 100%;
+  cursor: pointer;
+  border: 2px solid #000000;
+  border-radius: 8px;
+  background-color: #ffffff;
+  color: #000000;
+}
+
 .button {
   padding: 8px;
   font-size: 100%;
@@ -135,7 +145,7 @@
   background-color: #ffffff;
   color: #000000;
 
-  &:not(:disabled):active {
+  &:active {
     background-color: #000000;
     color: #ffffff;
   }
