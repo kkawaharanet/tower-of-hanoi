@@ -15,6 +15,13 @@ function App() {
   // セーブデータ
   const saveRepository = useContext(SaveRepositoryContext);
 
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [gameIndex]); // gameIndexを入れないとイベントハンドラで値を正しく取得できない
+
   function handleKeyDown(event: KeyboardEvent) {
     if (event.ctrlKey && event.key === "z") {
       // Ctrl+Zで1手戻る
@@ -30,13 +37,6 @@ function App() {
       }
     }
   }
-
-  useEffect(() => {
-    window.addEventListener("keydown", handleKeyDown);
-    return () => {
-      window.removeEventListener("keydown", handleKeyDown);
-    };
-  }, [gameIndex]); // gameIndexを入れないとイベントハンドラで値を正しく取得できない
 
   function handleGameStart(game: IGame) {
     // ゲームを始めるときは、履歴が1個だけの状態にする
