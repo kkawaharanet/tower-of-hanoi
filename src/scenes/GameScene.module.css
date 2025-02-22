@@ -82,3 +82,11 @@
   display: inline-block;
   animation: rotate 5s linear infinite;
 }
+
+.pointer-events-none {
+  pointer-events: none; /* クリックできなくする */
+}
+
+.pointer-events-auto {
+  pointer-events: auto; /* クリックできるようにする */
+}

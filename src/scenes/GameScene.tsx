@@ -43,6 +43,13 @@ export function GameScene(props: {
     setFrom(undefined);
   }
 
+  function handleUndo() {
+    if (props.gameIndex <= 0) {
+      return;
+    }
+    props.onRewind(props.gameIndex - 1);
+  }
+
   return (
     <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
       <div className={styles.container}>
@@ -73,7 +80,9 @@ export function GameScene(props: {
             </div>
           ) : (
             // 未クリア状態なら状態を表示する
-            <div className={styles.status}>
+            <div
+              className={`${styles.status} ${styles["pointer-events-none"]}`}
+            >
               <div>{t(`level${props.game.level}`)}</div>
               <div>
                 {t("shortestCount", {
@@ -82,7 +91,7 @@ export function GameScene(props: {
               </div>
               <select
                 onChange={(e) => props.onRewind(e.target.selectedIndex)}
-                className={styles.select}
+                className={`${styles.select} ${styles["pointer-events-auto"]}`}
                 value={props.gameIndex}
               >
                 {Array.from({ length: props.gamesLength }).map((_, i) => (
@@ -91,7 +100,16 @@ export function GameScene(props: {
                   </option>
                 ))}
               </select>
-              <button onClick={props.onGiveUp} className={styles.button}>
+              <button
+                onClick={handleUndo}
+                className={`${styles.button} ${styles["pointer-events-auto"]}`}
+              >
+                {t("undo")}
+              </button>
+              <button
+                onClick={props.onGiveUp}
+                className={`${styles.button} ${styles["pointer-events-auto"]}`}
+              >
                 {t("giveUp")}
               </button>
             </div>
