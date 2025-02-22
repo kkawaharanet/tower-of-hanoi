@@ -4,7 +4,7 @@
   display: flex;
   justify-content: center; /* テキストを中央に配置する */
   align-items: center; /* テキストを中央に配置する */
-  color: #ffffff;
+  color: var(--color-white);
 
   &.draggable {
     cursor: grab;

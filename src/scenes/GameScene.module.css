@@ -48,24 +48,24 @@
   padding: 8px;
   font-size: 100%;
   cursor: pointer;
-  border: 2px solid #000000;
+  border: 2px solid var(--color-black);
   border-radius: 8px;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--color-white);
+  color: var(--color-black);
 }
 
 .button {
   padding: 8px;
   font-size: 100%;
   cursor: pointer;
-  border: 2px solid #000000;
+  border: 2px solid var(--color-black);
   border-radius: 8px;
-  background-color: #ffffff;
-  color: #000000;
+  background-color: var(--color-white);
+  color: var(--color-black);
 
   &:active {
-    background-color: #000000;
-    color: #ffffff;
+    background-color: var(--color-black);
+    color: var(--color-white);
   }
 }
 
