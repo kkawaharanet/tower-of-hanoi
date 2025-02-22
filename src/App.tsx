@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { IGame } from "./i-game";
 import { SaveRepositoryContext } from "./main";
 import { GameScene } from "./scenes/GameScene";
@@ -14,6 +14,29 @@ function App() {
 
   // セーブデータ
   const saveRepository = useContext(SaveRepositoryContext);
+
+  function handleKeyDown(event: KeyboardEvent) {
+    if (event.ctrlKey && event.key === "z") {
+      // Ctrl+Zで1手戻る
+      event.preventDefault();
+      if (gameIndex >= 1) {
+        handleRewind(gameIndex - 1);
+      }
+    } else if (event.ctrlKey && event.key === "y") {
+      // Ctrl+Zで1手やり直す
+      event.preventDefault();
+      if (gameIndex < games.length - 1) {
+        handleRewind(gameIndex + 1);
+      }
+    }
+  }
+
+  useEffect(() => {
+    window.addEventListener("keydown", handleKeyDown);
+    return () => {
+      window.removeEventListener("keydown", handleKeyDown);
+    };
+  }, [gameIndex]); // gameIndexを入れないとイベントハンドラで値を正しく取得できない
 
   function handleGameStart(game: IGame) {
     // ゲームを始めるときは、履歴が1個だけの状態にする
