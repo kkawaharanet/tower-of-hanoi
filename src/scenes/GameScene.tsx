@@ -1,4 +1,5 @@
 import { DndContext, DragEndEvent, DragStartEvent } from "@dnd-kit/core";
+import { restrictToWindowEdges } from "@dnd-kit/modifiers";
 import { useState } from "react";
 import { useTranslation } from "react-i18next";
 import { DraggableItem } from "../components/draggable-item/DraggableItem";
@@ -51,7 +52,11 @@ export function GameScene(props: {
   }
 
   return (
-    <DndContext onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
+    <DndContext
+      onDragStart={handleDragStart}
+      onDragEnd={handleDragEnd}
+      modifiers={[restrictToWindowEdges]}
+    >
       <div className={styles.container}>
         {
           // クリア状態ならクリア画面を表示する
