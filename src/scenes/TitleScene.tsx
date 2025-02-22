@@ -18,34 +18,35 @@ export function TitleScene(props: {
         <span className={styles["game-title-diagonal"]}>{t("super")}</span>
         {t("towerOfHanoi")}
       </h1>
-      {levels.map((level) => {
-        // セーブデータがあったら色を付ける
-        const save = props.saves.find((s) => s.level === level);
-        const completelyCleared = (() => {
-          if (!save) {
-            return false;
-          }
-          return save.count <= save.shortestCount;
-        })();
-        const classNames = [
-          styles.button,
-          completelyCleared
-            ? styles["completely-cleared"]
-            : save
-            ? styles["cleared"]
-            : undefined,
-        ];
-        return (
-          <button
-            onClick={() => props.onStart(Game.create(level))}
-            className={classNames.join(" ")}
-            key={level}
-          >
-            {t(`level${level}`)}
-          </button>
-        );
-      })}
-
+      <div className={styles.scrollable}>
+        {levels.map((level) => {
+          // セーブデータがあったら色を付ける
+          const save = props.saves.find((s) => s.level === level);
+          const completelyCleared = (() => {
+            if (!save) {
+              return false;
+            }
+            return save.count <= save.shortestCount;
+          })();
+          const classNames = [
+            styles.button,
+            completelyCleared
+              ? styles["completely-cleared"]
+              : save
+              ? styles["cleared"]
+              : undefined,
+          ];
+          return (
+            <button
+              onClick={() => props.onStart(Game.create(level))}
+              className={classNames.join(" ")}
+              key={level}
+            >
+              {t(`level${level}`)}
+            </button>
+          );
+        })}
+      </div>
       <div className={styles.version}>
         {t("version", { version: import.meta.env.VERSION })}
       </div>

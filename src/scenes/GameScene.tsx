@@ -85,7 +85,7 @@ export function GameScene(props: {
                 className={styles.select}
                 value={props.gameIndex}
               >
-                {Array.from({ length: props.gamesLength }).map((g, i) => (
+                {Array.from({ length: props.gamesLength }).map((_, i) => (
                   <option value={i} key={i}>
                     {t("count", { count: i })}
                   </option>
