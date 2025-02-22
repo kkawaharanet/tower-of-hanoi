@@ -1,5 +1,6 @@
 import { DndContext, DragEndEvent, DragStartEvent } from "@dnd-kit/core";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import { DraggableItem } from "../components/draggable-item/DraggableItem";
 import { DroppableColumn } from "../components/droppable-column/DroppableColumn";
 import { IGame } from "../i-game";
@@ -11,13 +12,14 @@ export function GameScene(props: {
   gameIndex: number;
   onMove: (from: number, to: number) => void;
   onRewind: (index: number) => void;
-  onQuit: () => void;
-  onClear: (level: number, count: number) => void;
+  onGiveUp: () => void;
+  onClear: (level: number, count: number, shortestCount: number) => void;
 }) {
+  const { t } = useTranslation();
   const [from, setFrom] = useState<number | undefined>(undefined);
 
   function handleDragStart(event: DragStartEvent) {
-    // ドラッグした要素からどの列
+    // ドラッグした要素からどの列かを求める
     const value = event.active.id as number;
 
     if (props.game.towers[1].includes(value)) {
@@ -49,21 +51,35 @@ export function GameScene(props: {
           props.game.cleared ? (
             <div className={styles.cleared}>
               <div>
-                {props.game.level}を{props.game.count}手で
+                {t("clearedLevelWith", {
+                  level: t(`level${props.game.level}`),
+                  count: props.game.count,
+                  shortestCount: props.game.shortestCount,
+                })}
               </div>
-              <div className={styles["cleared-text"]}>クリア</div>
+              <div className={styles["cleared-text"]}>{t("cleared")}</div>
               <button
                 onClick={() =>
-                  props.onClear(props.game.level, props.game.count)
+                  props.onClear(
+                    props.game.level,
+                    props.game.count,
+                    props.game.shortestCount
+                  )
                 }
                 className={styles.button}
               >
-                戻る
+                {t("goBack")}
               </button>
             </div>
           ) : (
             // 未クリア状態なら状態を表示する
             <div className={styles.status}>
+              <div>{t(`level${props.game.level}`)}</div>
+              <div>
+                {t("shortestCount", {
+                  shortestCount: props.game.shortestCount,
+                })}
+              </div>
               <select
                 onChange={(e) => props.onRewind(e.target.selectedIndex)}
                 className={styles.select}
@@ -71,12 +87,12 @@ export function GameScene(props: {
               >
                 {Array.from({ length: props.gamesLength }).map((g, i) => (
                   <option value={i} key={i}>
-                    {i}手目
+                    {t("count", { count: i })}
                   </option>
                 ))}
               </select>
-              <button onClick={props.onQuit} className={styles.button}>
-                諦める
+              <button onClick={props.onGiveUp} className={styles.button}>
+                {t("giveUp")}
               </button>
             </div>
           )

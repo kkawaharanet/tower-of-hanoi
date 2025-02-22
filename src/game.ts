@@ -1,13 +1,17 @@
 import { IGame } from "./i-game";
 
 export class Game implements IGame {
-  public static LEVELS = 6;
+  public static readonly LEVELS = 6;
+  public readonly shortestCount: number;
 
   constructor(
     public readonly level: number,
     public readonly towers: number[][],
     public readonly count: number
-  ) {}
+  ) {
+    // n段のハノイの塔の最短手数は 2 ^ n - 1
+    this.shortestCount = 2 ** (Math.max(...this.towers.flat()) + 1) - 1;
+  }
 
   get cleared() {
     // 一番右の塔以外の高さが0だったらクリアとする

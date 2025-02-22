@@ -15,6 +15,11 @@ export interface IGame {
   readonly count: number;
 
   /**
+   * 理論上の最短手数
+   */
+  readonly shortestCount: number;
+
+  /**
    * クリア状態
    */
   readonly cleared: boolean;

@@ -22,13 +22,17 @@
   background-color: #ffffff;
   color: #000000;
 
-  &:not(:disabled):active {
-    background-color: #000000;
+  &:active {
+    background-color: #000000 !important;
     color: #ffffff;
   }
 
   &.cleared {
-    background-color: #c8e6c9;
+    background-color: var(--color-yellow-light);
+  }
+
+  &.completely-cleared {
+    background-color: var(--color-green-light);
   }
 }
 
@@ -45,11 +49,12 @@
 
 .game-title-diagonal {
   position: absolute;
-  top: -40px;
+  top: -30px;
   left: -40px;
   font-size: 80%;
   font-weight: normal;
   transform: rotate(-10deg);
   transform-origin: top right;
   white-space: nowrap;
+  color: var(--color-red);
 }

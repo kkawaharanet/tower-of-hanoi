@@ -7,7 +7,6 @@ import { TitleScene } from "./scenes/TitleScene";
 function App() {
   // ゲームの履歴
   const [games, setGames] = useState<IGame[]>([]);
-
   const [gameIndex, setGameIndex] = useState(-1);
 
   // 現在のゲーム
@@ -43,20 +42,20 @@ function App() {
     setGameIndex(index);
   }
 
-  function handleQuit() {
-    // 履歴を空にする
+  function handleGiveUp() {
+    // ゲームを未開始状態にする
     setGames([]);
     setGameIndex(-1);
   }
 
-  function handleClear(level: number, count: number) {
+  function handleClear(level: number, count: number, shortestCount: number) {
     const save = saveRepository.find(level);
     if (!save) {
       // セーブデータがなかったらセーブデータを保存する
-      saveRepository.update({ level, count });
+      saveRepository.update({ level, count, shortestCount });
     } else if (count < save.count) {
       // セーブデータがあり、最高記録を更新していたらセーブデータを保存する
-      saveRepository.update({ level, count });
+      saveRepository.update({ level, count, shortestCount });
     }
     // 履歴を空にする
     setGames([]);
@@ -78,7 +77,7 @@ function App() {
       gamesLength={games.length}
       onMove={handleMove}
       onRewind={handleRewind}
-      onQuit={handleQuit}
+      onGiveUp={handleGiveUp}
       onClear={handleClear}
     />
   );
