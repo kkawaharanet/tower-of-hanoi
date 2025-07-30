@@ -1,0 +1,92 @@
+.container {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.status {
+  position: absolute;
+  right: 0;
+  top: 0;
+  padding: 8px;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  align-items: center;
+}
+
+.cleared {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+}
+
+.cleared-text {
+  font-size: 200%;
+  animation: rotate 2s linear infinite;
+}
+
+.row {
+  height: 100%;
+  display: flex;
+  flex-direction: row;
+  gap: 8px;
+  box-sizing: border-box;
+  padding: 8px;
+}
+
+.select {
+  padding: 8px;
+  font-size: 100%;
+  cursor: pointer;
+  border: 2px solid var(--color-black);
+  border-radius: 8px;
+  background-color: var(--color-white);
+  color: var(--color-black);
+}
+
+.button {
+  padding: 8px;
+  font-size: 100%;
+  cursor: pointer;
+  border: 2px solid var(--color-black);
+  border-radius: 8px;
+  background-color: var(--color-white);
+  color: var(--color-black);
+
+  &:active {
+    background-color: var(--color-black);
+    color: var(--color-white);
+  }
+}
+
+@keyframes rotate {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+.rotating {
+  display: inline-block;
+  animation: rotate 5s linear infinite;
+}
+
+.pointer-events-none {
+  pointer-events: none; /* クリックできなくする */
+}
+
+.pointer-events-auto {
+  pointer-events: auto; /* クリックできるようにする */
+}

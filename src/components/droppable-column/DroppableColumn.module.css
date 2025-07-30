@@ -1,0 +1,13 @@
+.column {
+  flex: 1;
+  width: 100%;
+  display: flex;
+  flex-direction: column-reverse; /* 要素を逆順に縦に並べる */
+  justify-content: end; /*要素を下から配置する*/
+  align-items: center; /* 要素を左右中央に配置する */
+}
+
+.is-over {
+  background-color: #eeeeee;
+  border-radius: 8px;
+}
