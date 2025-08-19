@@ -4,7 +4,7 @@ export class Game implements IGame {
   public static readonly LEVELS = 6;
   public readonly shortestCount: number;
 
-  constructor(
+  private constructor(
     public readonly level: number,
     public readonly towers: number[][],
     public readonly count: number

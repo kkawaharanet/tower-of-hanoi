@@ -46,7 +46,7 @@ function App() {
 
   function handleMove(from: number, to: number) {
     if (!games[gameIndex].canMove(from, to)) {
-      // 円盤の移動できない場合は何もしない
+      // 円盤を移動できない場合は何もしない
       return;
     }
 
