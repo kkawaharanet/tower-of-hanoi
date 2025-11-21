@@ -23,6 +23,8 @@
   --color-green-light: #c8e6c9;
   --color-white: #ffffff;
   --color-black: #000000;
+  --font-size-normal: 100%;
+  --padding-normal: 8px;
 }
 
 * {
@@ -33,4 +35,12 @@
 body {
   overflow: hidden;
   background-color: var(--color-white);
+  font-size: var(--font-size-normal);
+}
+
+@media (width < 768px) {
+  :root {
+    --font-size-normal: 50%;
+    --padding-normal: 4px;
+  }
 }
