@@ -49,8 +49,8 @@
   padding: var(--padding-normal);
   font-size: 100%;
   cursor: pointer;
-  border: 2px solid var(--color-black);
-  border-radius: 8px;
+  border: var(--border-width-normal) solid var(--color-black);
+  border-radius: var(--border-radius-normal);
   background-color: var(--color-white);
   color: var(--color-black);
 }
@@ -59,8 +59,8 @@
   padding: var(--padding-normal);
   font-size: 100%;
   cursor: pointer;
-  border: 2px solid var(--color-black);
-  border-radius: 8px;
+  border: var(--border-width-normal) solid var(--color-black);
+  border-radius: var(--border-radius-normal);
   background-color: var(--color-white);
   color: var(--color-black);
 

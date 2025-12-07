@@ -27,8 +27,8 @@
   width: 20em;
   font-size: 100%;
   cursor: pointer;
-  border: 2px solid var(--color-black);
-  border-radius: 8px;
+  border: var(--border-width-normal) solid var(--color-black);
+  border-radius: var(--border-radius-normal);
   background-color: var(--color-white);
   color: var(--color-black);
 
@@ -67,4 +67,10 @@
   transform-origin: top right;
   white-space: nowrap;
   color: var(--color-red);
+}
+
+@media (width < 768px) {
+  .game-title-diagonal {
+    top: -15px;
+  }
 }

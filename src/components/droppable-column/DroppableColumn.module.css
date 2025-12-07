@@ -9,5 +9,5 @@
 
 .is-over {
   background-color: #eeeeee;
-  border-radius: 8px;
+  border-radius: var(--border-radius-normal);
 }

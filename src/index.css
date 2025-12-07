@@ -25,6 +25,8 @@
   --color-black: #000000;
   --font-size-normal: 100%;
   --padding-normal: 8px;
+  --border-radius-normal: 8px;
+  --border-width-normal: 2px;
 }
 
 * {
@@ -42,5 +44,7 @@ body {
   :root {
     --font-size-normal: 50%;
     --padding-normal: 4px;
+    --border-radius-normal: 4px;
+    --border-width-normal: 1px;
   }
 }
